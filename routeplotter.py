@@ -36,25 +36,3 @@ with GPSDClient() as client:
     destination = geodesic(nautical = rangefinder.dist_nm).destination(point = origin, bearing = trk)
 
     print(f"{destination.latitude}, {destination.longitude}")
-
-    
-    def calcvmg(bspd, twa):
-        twarad = twa * (math.pi / 180)
-        vmg = bspd * math.cos(twarad)
-        return vmg
-
-    def optimizevmg(twa):
-        if 0 <= twa <=90:
-            twalimit = 90
-        if 90 < twa <= 180:
-            twalimit = 90
-        if 270 <= twa < 0:
-            twalimit = 0
-        if 180 < twa < 270:
-            twalimit = 270
-        maxvmg = [0, 0] # [twa, vmg]
-        for i in range(twalimit - 90, twalimit):
-           vmgattempt = -0.131+0.0229(float(i))-.000168(float(i))^2+.000000499(float(i))^3-.000000000566(float(i))^4 # line of best fit, use Google Sheets to find one when you have the actual polar
-           if vmgattempt > maxvmg[1]:
-                maxvmg = [i, vmgattempt]
-        return maxvmg

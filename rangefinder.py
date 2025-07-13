@@ -8,6 +8,7 @@ def clear():
 
 alt = 0
 ele = -1
+targetbrng = 0
 
 clear()
 
